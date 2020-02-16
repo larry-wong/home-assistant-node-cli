@@ -1,0 +1,49 @@
+env:
+  es6: true
+  node: true
+extends:
+  - airbnb-base
+  - plugin:prettier/recommended
+globals:
+  Atomics: readonly
+  SharedArrayBuffer: readonly
+parser: '@typescript-eslint/parser'
+parserOptions:
+  ecmaVersion: 2018
+  sourceType: module
+plugins:
+  - '@typescript-eslint'
+rules: {
+    'import/prefer-default-export': 0,
+    'spaced-comment': ['error', 'always', {
+        'block': {
+            'exceptions': ['='],
+            'balanced': true,
+        },
+    }],
+    '@typescript-eslint/explicit-member-accessibility': ['error', {
+        'overrides': {
+            'constructors': 'no-public',
+        },
+    }],
+    '@typescript-eslint/member-naming': ['error', {
+        'private': '^_',
+        'protected': '^_',
+        'public': '^[^_]',
+    }],
+    '@typescript-eslint/member-ordering': ['error'],
+    'import/extensions': ['error', {
+        'ts': 'never',
+    }],
+    '@typescript-eslint/interface-name-prefix': ['error', 'always'],
+    'import/no-unresolved': 0,
+    'no-empty-function': ['error', {
+        'allow': ['constructors'],
+    }],
+    'no-underscore-dangle': 0,
+    'no-unused-vars': 0,
+    'no-bitwise': 0,
+    'class-methods-use-this': 0,
+    'no-plusplus': 0,
+    'no-restricted-syntax': 0,
+}

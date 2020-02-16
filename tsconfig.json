@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "lib": ["esnext"],
+        "moduleResolution": "node",
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "skipLibCheck": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "experimentalDecorators": true,
+        "noUnusedLocals": true,
+        "strict": true,
+        "strictPropertyInitialization": false,
+        "allowSyntheticDefaultImports": true,
+        "skipDefaultLibCheck": true,
+        "resolveJsonModule": true,
+        "downlevelIteration": true,
+        "outDir": "dist"
+    },
+    "include": ["src/**/*"]
+}

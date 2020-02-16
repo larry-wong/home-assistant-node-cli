@@ -1,0 +1,47 @@
+{
+  "name": "ha.cli",
+  "version": "0.1.0",
+  "description": "A homeassistant cli client.",
+  "main": "dist/index.js",
+  "author": "Larry",
+  "license": "MIT",
+  "scripts": {
+    "start": "tsc --watch",
+    "lint": "eslint --ext .ts \".\"",
+    "lint-fix": "eslint --ext .ts --fix \".\"",
+    "lint-tsc": "tsc --noEmit",
+    "build": "rimraf dist && tsc"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "yarn lint-fix && yarn lint-tsc"
+    }
+  },
+  "devDependencies": {
+    "@types/blessed": "^0.1.17",
+    "@types/inquirer": "^6.5.0",
+    "@types/js-yaml": "^3.12.2",
+    "@types/node": "^13.7.0",
+    "@types/ws": "^7.2.1",
+    "@typescript-eslint/eslint-plugin": "^2.19.2",
+    "@typescript-eslint/parser": "^2.19.2",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.3",
+    "prettier": "^1.19.1",
+    "rimraf": "^3.0.1",
+    "typescript": "^3.7.5"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "blessed": "^0.1.81",
+    "chalk": "^3.0.0",
+    "home-assistant-js-websocket": "^4.4.0",
+    "inquirer": "^7.0.4",
+    "js-yaml": "^3.13.1",
+    "ws": "^7.2.1"
+  }
+}
