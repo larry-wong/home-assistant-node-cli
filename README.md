@@ -2,9 +2,15 @@ hacli is an interactive command line client for your home assistant instance.
 
 ## installing
 
-`yarn global add hacli`
+```
+yarn global add hacli
+```
+
 or
-`npm install -g hacli`
+
+```
+npm install -g hacli
+```
 
 ## Start
 
@@ -12,7 +18,7 @@ or
 
 ## Usage
 
-The first time you run `hacli`, it will prompt your to offer hass url & long-lived access token. The reulst will be saved in configuration file named '.haclirc.yaml' in your home directory. You can edit it with your like.
+The first time you run hacli, it will prompt your to offer hass url & long-lived access token. The reulst will be saved in configuration file named '.haclirc.yaml' in your home directory. You can edit it with your like.
 After you logged in successfully, it will show you the dashboard which is composed of three blocks:
 
 -   Entity List(focusable) - the right one
