@@ -32,8 +32,8 @@ So entities with same type are next to each other.
 Entity List is focused by default, you can navigate with arrow keys:
 
 -   up / k - up
--   down/j - down
--   left/h - focus Entity Panel
+-   down / j - down
+-   left / h - focus Entity Panel
 -   space - toggle the state of current entity if supported
 -   / (the slash key) - jump to next type
 
