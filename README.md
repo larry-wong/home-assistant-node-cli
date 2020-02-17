@@ -1,6 +1,6 @@
 hacli is an interactive command line client for your home assistant instance.
 
-## installing
+## Installing
 
 ```
 yarn global add hacli
@@ -21,9 +21,9 @@ npm install -g hacli
 The first time you run hacli, it will prompt your to offer hass url & long-lived access token. The reulst will be saved in configuration file named '.haclirc.yaml' in your home directory. You can edit it with your like.
 After you logged in successfully, it will show you the dashboard which is composed of three blocks:
 
--   Entity List(focusable) - the right one
--   Entity Panel(focusable) - the left-top one
--   History List(unfocusable) - the left-bottom one
+-   Entity List (focusable) - the right one
+-   Entity Panel (focusable) - the left-top one
+-   History List (unfocusable) - the left-bottom one
 
 ### Entity List
 
@@ -35,7 +35,7 @@ Entity List is focused by default, you can navigate with arrow keys:
 -   down/j - down
 -   left/h - focus Entity Panel
 -   space - toggle the state of current entity if supported
--   /(the slash key) - jump to next type
+-   / (the slash key) - jump to next type
 
 ### Entity Panel
 
@@ -68,24 +68,24 @@ esc/q/ctrl+c: quit
 
 ### light
 
--   set state(on/off)
+-   set state (on/off)
 -   set brightness
 -   set color temp
 -   set rgb color
 
 ### cover
 
--   set state(open/closed)
+-   set state (open/closed)
 -   set position
 
 ### media_player
 
--   set state(on/off)
+-   set state (on/off)
 -   volume up/down
 
 ### vacuum
 
--   set state(on/off)
+-   set state (on/off)
 -   pause/resume
 -   stop
 -   locate
