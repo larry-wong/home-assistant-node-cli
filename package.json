@@ -1,8 +1,8 @@
 {
-  "name": "ha.cli",
+  "name": "hacli",
   "version": "0.1.0",
   "description": "A homeassistant cli client.",
-  "main": "dist/index.js",
+  "bin": "bin/hacli",
   "author": "Larry",
   "license": "MIT",
   "scripts": {
