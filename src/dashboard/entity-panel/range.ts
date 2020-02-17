@@ -27,11 +27,9 @@ export class Range extends Item<number> {
 
     private _step: number;
 
-    private _isFocused: boolean;
-
     private _notifyChange = debounce(() => {
         this._emitChange(this._value);
-    }, 500);
+    }, 800);
 
     constructor(label: string, value: number, min: number, max: number, step: number) {
         super();
@@ -40,16 +38,6 @@ export class Range extends Item<number> {
         this._min = min;
         this._max = max;
         this._step = step;
-    }
-
-    public focus() {
-        if (this._node) {
-            this._node.focus();
-        }
-    }
-
-    public blur() {
-        // No Implemention
     }
 
     public getHeight() {
@@ -61,15 +49,9 @@ export class Range extends Item<number> {
             tags: true,
         });
 
-        box.on('focus', () => {
-            this._isFocused = true;
-            this._updateView();
-        });
+        box.on('focus', this._updateView.bind(this));
 
-        box.on('blur', () => {
-            this._isFocused = false;
-            this._updateView();
-        });
+        box.on('blur', this._updateView.bind(this));
 
         this._bindLeft(box, () => {
             this._setValue(this._value - this._step);
@@ -100,9 +82,9 @@ export class Range extends Item<number> {
         const empty = TOTAL_STEPS - fill;
 
         // label:   min [######(value)---------] max
-        return `${`${this._label}:    ${this._min} ${this._isFocused ? '{inverse}' : ''}[`}${new Array(fill + 1).join(
+        return `${`${this._label}:    ${this._min} ${this._isFocused() ? '{inverse}' : ''}[`}${new Array(fill + 1).join(
             '#',
-        )}(${this._value})${new Array(empty + 1).join('-')}]${this._isFocused ? '{/}' : ''} ${this._max}`;
+        )}(${this._value})${new Array(empty + 1).join('-')}]${this._isFocused() ? '{/}' : ''} ${this._max}`;
     }
 
     private _setValue(value: number) {

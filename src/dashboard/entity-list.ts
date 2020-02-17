@@ -43,21 +43,6 @@ export class EntityList extends ViewObject<blessed.Widgets.ListElement> {
         return res;
     }
 
-    public focus() {
-        if (this._node) {
-            this._node.focus();
-            this._node.style.border.fg = 'white';
-            this._updateView();
-        }
-    }
-
-    public blur() {
-        if (this._node) {
-            this._node.style.border.fg = 'gray';
-            this._updateView();
-        }
-    }
-
     public onSelect(listener: (entity?: Entity) => void) {
         this.on('select', listener);
     }
@@ -95,6 +80,11 @@ export class EntityList extends ViewObject<blessed.Widgets.ListElement> {
                 },
                 border: {
                     fg: 'gray',
+                },
+                focus: {
+                    border: {
+                        fg: 'white',
+                    },
                 },
             } as any,
             keys: true,

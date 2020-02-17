@@ -18,6 +18,10 @@ export abstract class ViewObject<T extends blessed.Widgets.Node = blessed.Widget
 
     protected readonly _children: ViewObject[] = [];
 
+    private _parent?: ViewObject;
+
+    private _focused?: ViewObject; // current focused child
+
     public render(parentNode?: blessed.Widgets.Node) {
         this._node = this._createNode();
         if (parentNode) {
@@ -33,6 +37,35 @@ export abstract class ViewObject<T extends blessed.Widgets.Node = blessed.Widget
         child.on('update', this._updateView.bind(this));
 
         this._children.push(child);
+
+        // eslint-disable-next-line no-param-reassign
+        child._parent = this;
+    }
+
+    public focus() {
+        if (this._isFocused()) {
+            return;
+        }
+
+        if (this._parent!._focused) {
+            this._parent!._focused.blur();
+        }
+
+        // set parent's focused first
+        // some object may check this in its focus or blur function
+        this._parent!._focused = this;
+
+        const node = this._node as any;
+        if (node && node.focus instanceof Function) {
+            node.focus();
+        }
+    }
+
+    public blur() {
+        if (this._focused) {
+            this._focused.blur();
+            delete this._focused;
+        }
     }
 
     // for key 'left arrow' & 'h'
@@ -61,6 +94,10 @@ export abstract class ViewObject<T extends blessed.Widgets.Node = blessed.Widget
             this._node.destroy();
             delete this._node;
         }
+    }
+
+    protected _isFocused(): boolean {
+        return !!this._parent && this._parent._focused === this;
     }
 
     protected _emitLeft() {
@@ -117,10 +154,6 @@ export abstract class ViewObject<T extends blessed.Widgets.Node = blessed.Widget
     protected _updateView() {
         this.emit('update');
     }
-
-    public abstract focus(): void;
-
-    public abstract blur(): void;
 
     protected abstract _createNode(): T;
 }

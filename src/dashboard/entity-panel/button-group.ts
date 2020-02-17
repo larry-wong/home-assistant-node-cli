@@ -25,14 +25,12 @@ export class ButtonGroup extends Item<number> {
     }
 
     public focus() {
+        super.focus();
+
         // focus on the first button
         if (this._node && this._node.children.length) {
             (this._node.children[0] as blessed.Widgets.ButtonElement).focus();
         }
-    }
-
-    public blur() {
-        // No Implemention
     }
 
     public getHeight(): number {

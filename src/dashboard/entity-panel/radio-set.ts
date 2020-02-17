@@ -28,16 +28,14 @@ export class RadioSet extends Item<string> {
     }
 
     public focus() {
+        super.focus();
+
         // focus on current checked radioButton or the first one
         if (this._node && this._node.children.length) {
             const children = this._node.children as blessed.Widgets.RadioButtonElement[];
             const node = children.find(c => c.checked) || children[0];
             node.focus();
         }
-    }
-
-    public blur() {
-        // No Implemention
     }
 
     public getHeight(): number {

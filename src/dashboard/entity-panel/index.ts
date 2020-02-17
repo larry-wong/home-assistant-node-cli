@@ -23,24 +23,22 @@ import { Message } from './message';
 import { ENTITY_LIST_WIDTH, HISTORY_LIST_HEIGHT } from '../../constants';
 
 export class EntityPanel extends ViewObject<blessed.Widgets.BoxElement> {
-    private _isFocused: boolean;
-
     private _foucusedItemIndex: number;
 
     public focus() {
-        this._isFocused = true;
+        super.focus();
         this._foucusedItemIndex = 0;
         if (this._children.length) {
             this._children[0].focus();
         }
         if (this._node) {
-            this._node.style.border.fg = 'while';
+            this._node.style.border.fg = 'white';
             this._updateView();
         }
     }
 
     public blur() {
-        this._isFocused = false;
+        super.blur();
         if (this._node) {
             this._node.style.border.fg = 'gray';
             this._updateView();
@@ -72,7 +70,7 @@ export class EntityPanel extends ViewObject<blessed.Widgets.BoxElement> {
         });
 
         // try to keep foucus status
-        if (this._isFocused) {
+        if (this._isFocused()) {
             this._foucusedItemIndex = Math.min(this._foucusedItemIndex, this._children.length - 1);
             this._children[this._foucusedItemIndex].focus();
         }
@@ -197,14 +195,12 @@ export class EntityPanel extends ViewObject<blessed.Widgets.BoxElement> {
 
         item.onUp(() => {
             if (this._foucusedItemIndex > 0) {
-                item!.blur();
                 this._children[--this._foucusedItemIndex].focus();
             }
         });
 
         item.onDown(() => {
             if (this._foucusedItemIndex < this._children.length - 1) {
-                item!.blur();
                 this._children[++this._foucusedItemIndex].focus();
             }
         });

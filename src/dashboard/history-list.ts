@@ -31,14 +31,6 @@ export class HistoryList extends ViewObject<blessed.Widgets.ListElement> {
         );
     }
 
-    public focus() {
-        // No Implemention
-    }
-
-    public blur() {
-        // No Implemention
-    }
-
     protected _createNode(): blessed.Widgets.ListElement {
         const list = blessed.list({
             label: 'History',

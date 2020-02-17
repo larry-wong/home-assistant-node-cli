@@ -21,16 +21,6 @@ export class Message extends Item<void> {
         this._text = text;
     }
 
-    public focus() {
-        if (this._node) {
-            this._node.focus();
-        }
-    }
-
-    public blur() {
-        // No Implemention
-    }
-
     public getHeight(): number {
         return 1;
     }

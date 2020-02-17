@@ -17,14 +17,6 @@ import { EntityPanel } from './entity-panel';
 import { HistoryList } from './history-list';
 
 export class Dashboard extends ViewObject<blessed.Widgets.Screen> {
-    public focus() {
-        // No Implemention
-    }
-
-    public blur() {
-        // No Implemention
-    }
-
     public render() {
         super.render();
 
@@ -40,14 +32,8 @@ export class Dashboard extends ViewObject<blessed.Widgets.Screen> {
 
         // transfer data / events between entityList & entityPanel
         entityList.onSelect(entityPanel.showEntity.bind(entityPanel));
-        entityList.onLeft(() => {
-            entityPanel.focus();
-            entityList.blur();
-        });
-        entityPanel.onRight(() => {
-            entityPanel.blur();
-            entityList.focus();
-        });
+        entityList.onLeft(entityPanel.focus.bind(entityPanel));
+        entityPanel.onRight(entityList.focus.bind(entityList));
     }
 
     protected _createNode(): blessed.Widgets.Screen {
@@ -71,5 +57,9 @@ export class Dashboard extends ViewObject<blessed.Widgets.Screen> {
         });
 
         return screen;
+    }
+
+    protected _isFocused() {
+        return true; // root object is always focused
     }
 }

@@ -20,23 +20,11 @@ export class Stepper extends Item<boolean> {
 
     private _forwardLabel: string;
 
-    private _isFocused: boolean;
-
     constructor(label: string, backwardLabel: string, forwardLabel: string) {
         super();
         this._label = label;
         this._backwardLabel = backwardLabel;
         this._forwardLabel = forwardLabel;
-    }
-
-    public focus() {
-        if (this._node) {
-            this._node.focus();
-        }
-    }
-
-    public blur() {
-        // No Implemention
     }
 
     public getHeight() {
@@ -48,15 +36,9 @@ export class Stepper extends Item<boolean> {
             tags: true,
         });
 
-        box.on('focus', () => {
-            this._isFocused = true;
-            this._updateView();
-        });
+        box.on('focus', this._updateView.bind(this));
 
-        box.on('blur', () => {
-            this._isFocused = false;
-            this._updateView();
-        });
+        box.on('blur', this._updateView.bind(this));
 
         this._bindLeft(box, this._emitChange.bind(this, false));
 
@@ -82,9 +64,9 @@ export class Stepper extends Item<boolean> {
         return (
             `${this._label}:    ` +
             `${this._backwardLabel} ` +
-            `${this._isFocused ? '{inverse}' : ''}` +
+            `${this._isFocused() ? '{inverse}' : ''}` +
             '<--|-->' +
-            `${this._isFocused ? '{/}' : ''}` +
+            `${this._isFocused() ? '{/}' : ''}` +
             ` ${this._forwardLabel}`
         );
     }
