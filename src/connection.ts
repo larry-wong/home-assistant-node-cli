@@ -66,7 +66,7 @@ export class Connection {
             // last 24 hours by default
             const history: hajw.HassEntity[] = Array.prototype.concat.apply(
                 [],
-                (await this._axiosInstance.get('/history/peiod')).data,
+                (await this._axiosInstance.get('/history/period')).data,
             );
             history.sort((a, b) => {
                 if (a.last_updated > b.last_updated) {

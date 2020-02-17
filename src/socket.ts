@@ -21,9 +21,7 @@ const MSG_TYPE_AUTH_OK = 'auth_ok';
 export async function createSocket(wsUrl: string, token: string): Promise<WebSocket> {
     let resolve: (socket: WebSocket) => void;
 
-    const socket = new WebSocket(wsUrl);
-
-    function sendAuthMessage() {
+    function sendAuthMessage(socket: WebSocket) {
         socket.send(
             JSON.stringify({
                 type: 'auth',
@@ -32,33 +30,50 @@ export async function createSocket(wsUrl: string, token: string): Promise<WebSoc
         );
     }
 
-    function handleMessage(event: WebSocket.MessageEvent) {
+    function handleAuthInvalid(socket: WebSocket) {
+        socket.removeAllListeners();
+        showError('Auth failed, please check your configuration file.');
+        process.exit(0);
+    }
+
+    function handleAuthOk(socket: WebSocket) {
+        socket.removeAllListeners();
+        resolve(socket);
+    }
+
+    function handleError(socket?: WebSocket) {
+        if (socket) {
+            socket.removeAllListeners();
+        }
+        showError('Failed to connect to hass, please check your configuration file.');
+        process.exit(0);
+    }
+
+    function handleMessage(socket: WebSocket, event: WebSocket.MessageEvent) {
         const message = JSON.parse(event.data as string);
         switch (message.type) {
             case MSG_TYPE_AUTH_REQUIRED:
-                sendAuthMessage();
+                sendAuthMessage(socket);
                 break;
             case MSG_TYPE_AUTH_INVALID:
-                socket.removeAllListeners();
-                showError('Auth failed, please check your configuration file.');
+                handleAuthInvalid(socket);
                 break;
             case MSG_TYPE_AUTH_OK:
-                socket.removeAllListeners();
-                resolve(socket);
+                handleAuthOk(socket);
                 break;
             default:
                 break;
         }
     }
 
-    function handleError() {
-        socket.removeAllListeners();
-        showError('Failed to connect to hass, please check your configuration file.');
+    try {
+        const socket = new WebSocket(wsUrl);
+        socket.addEventListener('message', handleMessage.bind(undefined, socket));
+        socket.addEventListener('error', handleError.bind(undefined, socket));
+        socket.addEventListener('close', handleError.bind(undefined, socket));
+    } catch (e) {
+        handleError();
     }
-
-    socket.addEventListener('message', handleMessage);
-    socket.addEventListener('error', handleError);
-    socket.addEventListener('close', handleError);
 
     return new Promise<WebSocket>(res => {
         resolve = res;

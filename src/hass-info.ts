@@ -39,31 +39,30 @@ export class HassInfo {
 
     public async getInfo(): Promise<IConfig> {
         const config = await this._readConfigFile();
-        const answers = await inquirer.prompt([
-            {
-                type: 'input',
-                when: !config.hassUrl,
-                name: 'hassUrl',
-                message: 'Your hass url:',
-            },
-            {
-                type: 'input',
-                when: !config.token,
-                name: 'token',
-                message: 'Your long-lived access token:',
-            },
-        ]);
-
-        const res = {
-            hassUrl: answers.hassUrl || config.hassUrl,
-            token: answers.token || config.token,
-        };
-
         if (!config.hassUrl || !config.token) {
-            await this._writeConfigFile(res);
+            const answers = await inquirer.prompt([
+                {
+                    type: 'input',
+                    when: !config.hassUrl,
+                    name: 'hassUrl',
+                    message: 'Your hass url:',
+                },
+                {
+                    type: 'input',
+                    when: !config.token,
+                    name: 'token',
+                    message: 'Your long-lived access token:',
+                },
+            ]);
+            Object.assign(config, answers);
+
+            // avoid following keyboard triggered twice
+            process.stdin.removeAllListeners();
+
+            await this._writeConfigFile(config as IConfig);
         }
 
-        return res;
+        return config as IConfig;
     }
 
     private async _writeConfigFile(config: IConfig) {
@@ -82,7 +81,7 @@ export class HassInfo {
     > {
         try {
             const text = await fs.promises.readFile(this._getConfigFilePath(), 'utf8');
-            return yaml.safeLoad(text);
+            return yaml.safeLoad(text) || {};
         } catch (e) {
             return {};
         }
