@@ -31,7 +31,7 @@ Entity List shows all your entities by alph order of it's id: type + '.' + name.
 So entities with same type are next to each other.
 Entity List is focused by default, you can navigate with arrow keys:
 
--   up/k - up
+-   up / k - up
 -   down/j - down
 -   left/h - focus Entity Panel
 -   space - toggle the state of current entity if supported
@@ -41,11 +41,11 @@ Entity List is focused by default, you can navigate with arrow keys:
 
 Entity Panel shows detail operations of current selected entity in Entity List.
 
--   up/k - up
--   down/j - down
--   left/h - left
--   right/l - right, or focus back to Entity List if no item at right side
--   enter/space - select
+-   up / k - up
+-   down / j - down
+-   left / h - left
+-   right / l - right, or focus back to Entity List if no item at right side
+-   enter / space - select
 
 ### History List
 
@@ -53,9 +53,9 @@ History List show the lastest items of the past 24 hours.
 
 ### Global Keys
 
-shift-left/shift-h: focus Entity Panel
-shift-right/shift-l: focus Entity List
-esc/q/ctrl+c: quit
+-   shift-left / shift-h: focus Entity Panel
+-   shift-right / shift-l: focus Entity List
+-   esc / q / ctrl+c: quit
 
 ## supported features
 
@@ -68,24 +68,24 @@ esc/q/ctrl+c: quit
 
 ### light
 
--   set state (on/off)
+-   set state (on / off)
 -   set brightness
 -   set color temp
 -   set rgb color
 
 ### cover
 
--   set state (open/closed)
+-   set state (open / closed)
 -   set position
 
 ### media_player
 
--   set state (on/off)
+-   set state (on / off)
 -   volume up/down
 
 ### vacuum
 
--   set state (on/off)
+-   set state (on / off)
 -   pause/resume
 -   stop
 -   locate
