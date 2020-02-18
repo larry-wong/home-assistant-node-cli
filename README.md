@@ -1,4 +1,5 @@
 hacli is an interactive command line client for your home assistant instance.
+![Iterm2 Screenshot](https://raw.githubusercontent.com/larry-wong/hacli/master/screenshots/iterm2.png)
 
 ## Installing
 
