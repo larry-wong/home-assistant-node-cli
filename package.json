@@ -1,8 +1,10 @@
 {
-  "name": "hacli",
+  "name": "home-assistant-node-cli",
   "version": "0.1.0",
-  "description": "A homeassistant cli client.",
-  "bin": "bin/hacli",
+  "description": "A interactive home-assistant cli client.",
+  "bin": {
+    "hac": "bin/hac"
+  },
   "author": "Larry",
   "license": "MIT",
   "scripts": {
@@ -14,8 +16,12 @@
   },
   "repository": {
       "type": "git",
-      "url": "git+https://github.com/larry-wong/ha.cli.git"
+      "url": "git+https://github.com/larry-wong/home-assistant-node-cli.git"
   },
+  "keywords": [
+      "home-assistant",
+      "cli"
+  ],
   "husky": {
     "hooks": {
       "pre-push": "yarn lint-fix && yarn lint-tsc"

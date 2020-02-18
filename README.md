@@ -1,25 +1,25 @@
-hacli is an interactive command line client for your home assistant instance.
-![Iterm2 Screenshot](https://raw.githubusercontent.com/larry-wong/hacli/master/screenshots/iterm2.png)
+A interactive cli client for your home assistant instance.
+![Iterm2 Screenshot](https://raw.githubusercontent.com/larry-wong/home-assistant-node-cli/master/screenshots/iterm2.png)
 
 ## Installing
 
 ```
-yarn global add hacli
+yarn global add home-assistant-node-cli
 ```
 
 or
 
 ```
-npm install -g hacli
+npm install -g home-assistant-node-cli
 ```
 
 ## Start
 
-`hacli`
+`hac`
 
 ## Usage
 
-The first time you run hacli, it will prompt your to offer hass url & long-lived access token. The reulst will be saved in configuration file named '.haclirc.yaml' in your home directory. You can edit it with your like.
+For the first running, it will prompt your to offer hass url & long-lived access token. The reulst will be saved in configuration file named '.hacrc.yaml' in your home directory. You can edit it with your like.
 After you logged in successfully, it will show you the dashboard which is composed of three blocks:
 
 -   Entity List (focusable) - the right one

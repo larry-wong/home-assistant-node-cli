@@ -17,7 +17,7 @@ import * as yaml from 'js-yaml';
 import * as inquirer from 'inquirer';
 import { showError } from './utils';
 
-const CONFIG_FILE_NAME = '.haclirc.yaml';
+const CONFIG_FILE_NAME = '.hacrc.yaml';
 
 interface IConfig {
     hassUrl: string;
