@@ -1,5 +1,5 @@
 A interactive cli client for your home assistant instance.
-![Iterm2 Screenshot](https://raw.githubusercontent.com/larry-wong/home-assistant-node-cli/master/screenshots/iterm2.png)
+![iTerm2 screenshot](https://raw.githubusercontent.com/larry-wong/home-assistant-node-cli/master/screenshots/iterm2.png)
 
 ## Installing
 
