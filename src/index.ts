@@ -10,16 +10,12 @@
 #
 =============================================================================*/
 
-import { HassInfo } from './hass-info';
-import { Connection } from './connection';
+import { Account } from './account';
 import { Dashboard } from './dashboard';
 
 (async () => {
-    // get hass info from configuration file or user input
-    const hassInfo = await HassInfo.getInstance().getInfo();
-
-    // create connection to hass with that info
-    await Connection.getInstance().connect(hassInfo.hassUrl, hassInfo.token);
+    // sign to hass with configuration file or user input
+    await Account.getInstance().signIn();
 
     // render the dashboard
     new Dashboard().render();

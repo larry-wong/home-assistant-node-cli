@@ -11,7 +11,7 @@
 =============================================================================*/
 
 import * as WebSocket from 'ws';
-import { showError } from './utils';
+import { ERR_CANNOT_CONNECT, ERR_INVALID_AUTH } from './errors';
 
 const MSG_TYPE_AUTH_REQUIRED = 'auth_required';
 const MSG_TYPE_AUTH_INVALID = 'auth_invalid';
@@ -20,6 +20,7 @@ const MSG_TYPE_AUTH_OK = 'auth_ok';
 // create a websocket connection with hass via package ws
 export async function createSocket(wsUrl: string, token: string): Promise<WebSocket> {
     let resolve: (socket: WebSocket) => void;
+    let reject: (e: Error) => void;
 
     function sendAuthMessage(socket: WebSocket) {
         socket.send(
@@ -32,8 +33,7 @@ export async function createSocket(wsUrl: string, token: string): Promise<WebSoc
 
     function handleAuthInvalid(socket: WebSocket) {
         socket.removeAllListeners();
-        showError('Auth failed, please check your configuration file.');
-        process.exit(0);
+        reject(ERR_INVALID_AUTH);
     }
 
     function handleAuthOk(socket: WebSocket) {
@@ -45,8 +45,7 @@ export async function createSocket(wsUrl: string, token: string): Promise<WebSoc
         if (socket) {
             socket.removeAllListeners();
         }
-        showError('Failed to connect to hass, please check your configuration file.');
-        process.exit(0);
+        reject(ERR_CANNOT_CONNECT);
     }
 
     function handleMessage(socket: WebSocket, event: WebSocket.MessageEvent) {
@@ -66,16 +65,17 @@ export async function createSocket(wsUrl: string, token: string): Promise<WebSoc
         }
     }
 
-    try {
-        const socket = new WebSocket(wsUrl);
-        socket.addEventListener('message', handleMessage.bind(undefined, socket));
-        socket.addEventListener('error', handleError.bind(undefined, socket));
-        socket.addEventListener('close', handleError.bind(undefined, socket));
-    } catch (e) {
-        handleError();
-    }
-
-    return new Promise<WebSocket>(res => {
+    return new Promise<WebSocket>((res, rej) => {
         resolve = res;
+        reject = rej;
+
+        try {
+            const socket = new WebSocket(wsUrl);
+            socket.addEventListener('message', handleMessage.bind(undefined, socket));
+            socket.addEventListener('error', handleError.bind(undefined, socket));
+            socket.addEventListener('close', handleError.bind(undefined, socket));
+        } catch (e) {
+            handleError();
+        }
     });
 }

@@ -1,6 +1,6 @@
 {
   "name": "home-assistant-node-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A interactive home-assistant cli client.",
   "bin": {
     "hac": "bin/hac"
